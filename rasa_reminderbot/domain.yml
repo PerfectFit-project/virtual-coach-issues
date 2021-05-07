@@ -1,0 +1,27 @@
+version: "2.0"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- greet
+- bye
+- ask_remind_hrs
+- ask_forget_reminders
+- answer_yes
+- answer_no
+- EXTERNAL_reminder
+responses:
+  utter_what_can_do:
+  - text: What can I do for you?
+  utter_goodbye:
+  - text: Bye
+  utter_hrs_yes:
+  - text: Hey, remember you can deal with cravings by watering your plants
+  utter_hrs_no:
+  - text: Please be careful, cravings can always come unexpectedly
+actions:
+- action_set_reminder
+- action_confirm_reminder
+- action_forget_reminders
+- action_react_to_reminder

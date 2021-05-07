@@ -1,0 +1,17 @@
+# version: "2.0"
+# stories:
+#   - story: HRS forseen path
+#     steps:
+#     - intent: EXTERNAL_reminder
+#     - action: action_react_to_reminder
+#     - action: action_set_reminder
+#     - intent: answer_yes
+#     - action: utter_hrs_yes
+
+#   - story: HRS not forseen path
+#     steps:
+#     - intent: EXTERNAL_reminder
+#     - action: action_react_to_reminder
+#     - action: action_set_reminder
+#     - intent: answer_no
+#     - action: utter_hrs_no

@@ -1,0 +1,32 @@
+version: "2.0"
+rules:
+- rule: greet
+  steps:
+  - intent: greet
+  - action: utter_what_can_do
+- rule: say goodbye
+  steps:
+  - intent: bye
+  - action: utter_goodbye
+- rule: remind high risk situation
+  steps:
+  - intent: ask_remind_hrs
+  - action: action_set_reminder
+  - action: action_confirm_reminder
+- rule: forget reminder
+  steps:
+  - intent: ask_forget_reminders
+  - action: action_forget_reminders
+- rule: react to reminder
+  steps:
+  - intent: EXTERNAL_reminder
+  - action: action_react_to_reminder
+  - action: action_set_reminder    # here is the trick to set periodic reminder
+- rule: forsee hrs
+  steps:
+  - intent: answer_yes
+  - action: utter_hrs_yes
+- rule: not forsee hrs
+  steps:
+  - intent: answer_no
+  - action: utter_hrs_no
