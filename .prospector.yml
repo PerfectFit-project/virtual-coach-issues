@@ -16,7 +16,7 @@ ignore-paths:
 pyroma:
     run: true
 
-pep8:
+pycodestyle:
     full: true
     options:
       max-line-length: 100
