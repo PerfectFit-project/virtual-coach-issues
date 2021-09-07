@@ -13,9 +13,6 @@ ignore-paths:
   - docs
   - niceday_client/niceday_client/__init__.py
 
-pyroma:
-    run: true
-
 pycodestyle:
     full: true
     options:
