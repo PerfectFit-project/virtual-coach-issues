@@ -15,3 +15,7 @@ services:
     build: niceday-broker/
     env_file:
       - .env
+  niceday-api:
+    build: niceday-api/
+    env_file:
+      - .env
