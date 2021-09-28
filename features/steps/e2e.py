@@ -2,15 +2,11 @@ from behave import *
 import requests
 
 RASA_URL = 'http://localhost:5005'
+DB_URL = 'http://localhost:5432'
 EXPECTED_RUNNING_DISTANCE_RESPONSE = 'you should run 40.0 kilometers this week'
+EXPECTED_PLANNING_OFFERS = ['Zal ik de planning in je NiceDay agenda zetten?', 'Wil je dat ik de planning in je NiceDay agenda zet?']
 
 @given('rasa bot is up and running')
-def step_impl(context):
-    r = requests.get(RASA_URL)
-    assert r.status_code == 200
-    r.raise_for_status()
-
-@given('virtual coach db is up and running')
 def step_impl(context):
     r = requests.get(RASA_URL)
     assert r.status_code == 200
@@ -22,6 +18,24 @@ def step_impl(context):
 
     body = {
             "message": "Kan ik de agenda voor de week krijgen?",
+            "sender":"user"
+            }
+
+    query_params = None
+    headers = {"Accept": "application/json"}
+    r = requests.post(webhookurl, json=body)
+    r.raise_for_status()
+
+    assert r.status_code == 200
+
+    context.chat_responses = r.json()
+
+@when('we respond yes')
+def step_impl(context):
+    webhookurl = RASA_URL + '/webhooks/rest/webhook'
+
+    body = {
+            "message": "Ja",
             "sender":"user"
             }
 
@@ -50,3 +64,21 @@ def step_impl(context):
     else:
         assert False
 
+@then('rasa bot offers to add planning to niceday agenda')
+def step_impl(context):
+    assert 'text' in context.chat_responses[-1]
+    for expected_planning_offer in EXPECTED_PLANNING_OFFERS:
+        if expected_planning_offer in context.chat_responses[-1]['text']:
+            break
+    else:
+        assert False
+
+
+@then('rasa bot confirms it has added planning to niceday agenda')
+def step_impl(context):
+    for msg in context.chat_responses:
+        assert 'text' in msg
+        if 'Cool' in msg['text'] or 'Okay' in msg['text']:
+            break
+    else:
+        assert False
