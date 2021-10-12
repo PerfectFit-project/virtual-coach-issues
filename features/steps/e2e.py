@@ -1,3 +1,5 @@
+# pylint: disable=function-redefined
+
 from behave import given, when, then
 import requests
 
