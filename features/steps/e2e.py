@@ -23,7 +23,7 @@ def step_impl(context):
 
     body = {
         "message": "Kan ik de agenda voor de week krijgen?",
-        "sender": "user" }
+        "sender": "user"}
 
     r = requests.post(webhookurl, json=body)
     r.raise_for_status()
@@ -39,7 +39,7 @@ def step_impl(context):
 
     body = {
         "message": "Ja",
-        "sender": "user" }
+        "sender": "user"}
 
     r = requests.post(webhookurl, json=body)
     r.raise_for_status()
