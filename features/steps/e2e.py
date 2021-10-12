@@ -11,7 +11,7 @@ EXPECTED_PLANNING_OFFERS = ['Zal ik de planning in je NiceDay agenda zetten?',
 
 
 @given('rasa bot is up and running')
-def step_impl(context):
+def step_impl():
     r = requests.get(RASA_URL)
     assert r.status_code == 200
     r.raise_for_status()
@@ -22,9 +22,8 @@ def step_impl(context):
     webhookurl = RASA_URL + '/webhooks/rest/webhook'
 
     body = {
-            "message": "Kan ik de agenda voor de week krijgen?",
-            "sender": "user"
-            }
+        "message": "Kan ik de agenda voor de week krijgen?",
+        "sender": "user" }
 
     r = requests.post(webhookurl, json=body)
     r.raise_for_status()
@@ -39,9 +38,8 @@ def step_impl(context):
     webhookurl = RASA_URL + '/webhooks/rest/webhook'
 
     body = {
-            "message": "Ja",
-            "sender": "user"
-            }
+        "message": "Ja",
+        "sender": "user" }
 
     r = requests.post(webhookurl, json=body)
     r.raise_for_status()
