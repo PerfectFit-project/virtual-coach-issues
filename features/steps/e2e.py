@@ -7,11 +7,13 @@ EXPECTED_RUNNING_DISTANCE_RESPONSE = 'you should run 40.0 kilometers this week'
 EXPECTED_PLANNING_OFFERS = ['Zal ik de planning in je NiceDay agenda zetten?',
                             'Wil je dat ik de planning in je NiceDay agenda zet?']
 
+
 @given('rasa bot is up and running')
 def step_impl(context):
     r = requests.get(RASA_URL)
     assert r.status_code == 200
     r.raise_for_status()
+
 
 @when('we ask for the agenda')
 def step_impl(context):
@@ -19,17 +21,16 @@ def step_impl(context):
 
     body = {
             "message": "Kan ik de agenda voor de week krijgen?",
-            "sender":"user"
+            "sender": "user"
             }
 
-    query_params = None
-    headers = {"Accept": "application/json"}
     r = requests.post(webhookurl, json=body)
     r.raise_for_status()
 
     assert r.status_code == 200
 
     context.chat_responses = r.json()
+
 
 @when('we respond yes')
 def step_impl(context):
@@ -37,17 +38,16 @@ def step_impl(context):
 
     body = {
             "message": "Ja",
-            "sender":"user"
+            "sender": "user"
             }
 
-    query_params = None
-    headers = {"Accept": "application/json"}
     r = requests.post(webhookurl, json=body)
     r.raise_for_status()
 
     assert r.status_code == 200
 
     context.chat_responses = r.json()
+
 
 @then('all messages are found to be addressed to the user')
 def step_impl(context):
@@ -64,6 +64,7 @@ def step_impl(context):
             break
     else:
         assert False
+
 
 @then('rasa bot offers to add planning to niceday agenda')
 def step_impl(context):
