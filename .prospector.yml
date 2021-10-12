@@ -30,6 +30,12 @@ pep257:
     ]
 
 pylint:
+  options:
+    max-line-length: 100
   disable: [
     logging-fstring-interpolation
   ]
+
+pyflakes:
+  disable:
+    - F811
