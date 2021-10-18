@@ -8,5 +8,8 @@ services:
       - ./:/app
     expose: ["5005"]
   rasa_actions:
-    build: actions/
+    build: 
+      context: actions/
+      args:
+        rasa_vers: ${RASA_VERSION}
     expose: ["5055"]
