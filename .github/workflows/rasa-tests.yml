@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - main
-      - rasa_env
   pull_request:
       types: [opened, synchronize, reopened]
 
@@ -28,14 +27,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r Rasa_Bot/requirements-dev.txt
-    # The number for max-history needs to be adapted based on config.yml
-    - name: Get max history from config
+    - name: Get max history from Rasa config-file
       id: hist
       run:
         echo "::set-output name=hist::$(python ".github/workflows/rasa_get_max_history.py")"
-    - name: Print hist
-      run: 
-        echo "${{ steps.hist.outputs.hist}}"
     - name: Rasa Data Validation
       run: |
         cd Rasa_Bot

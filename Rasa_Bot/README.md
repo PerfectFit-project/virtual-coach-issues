@@ -9,12 +9,11 @@ The steps are as follows:
 - Start the database via docker-compose, apply the existing migrations and load test data (see [here](https://github.com/PerfectFit-project/virtual-coach-db).
 - Create a .env-file in the Rasa_Bot/actions-folder that contains the host address and port of the running database in the variable DB_HOST. If the database is running on localhost on Windows or Mac and you want to access it from inside a Docker container, set DB_Host to host.docker.internal:<port_number> (see .env-example).
 - Navigate to the "Rasa_Bot"-folder on your laptop.
+- Make sure you have a .env-file in this folder. This should be modeled after the .env-example-file.
 - Type `docker-compose up`.
 - Now you can communicate with the bot via its REST API. E.g. on Windows, type `curl http://localhost:5005/webhooks/rest/webhook -d "{\"message\": \"Kan ik de agenda voor de week krijgen?\", \"sender\":\"user\"}"`. Note that the escaping of the double-quotes is a fix that is needed on Windows.
    - The output for the above command should be something like this: [{"recipient_id":"user","text":"Sure, you should ..."}]
    - See [this page](https://rasa.com/docs/rasa/connectors/your-own-website#restinput) for details on how to use the REST channel.
-
-Note that while the requirements-file lists Rasa 2.8.1 as a requirement, this is only needed to train a language model and handy when developing.
 
 NB: If you want to run rasa outside of docker, you might want to change the urls
 in `endpoints.yml`.
@@ -66,4 +65,4 @@ The timeout is currently set to 5 minutes (in the "domain.yml"-file). This is th
 In case the new custom action code requires any libraries, these need to be added to "requirements-actions.txt" in the "actions"-folder.
 
 ### Retraining when making changes to Language Model
-Any changes made to domain.yml, nlu.yml, config.yml, stories.yml, among others, require retraining the model via `rasa train`. It is important to pay attention to the Rasa version that is used for this training. If the Rasa version is changed, then the Rasa SDK version in the Dockerfile and the Rasa version in the docker-compose.yml file also need to be updated.
+Any changes made to domain.yml, nlu.yml, config.yml, stories.yml, among others, require retraining the model via `rasa train`. It is important to pay attention to the Rasa version that is used for this training. If the Rasa version is changed, then the Rasa SDK version in the .env-file and the Rasa version in requirementx.txt also need to be updated.
