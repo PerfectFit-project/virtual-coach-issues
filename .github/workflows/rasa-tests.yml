@@ -33,6 +33,9 @@ jobs:
       id: hist
       run:
         echo "::set-output name=hist::$(python rasa_get_max_history.py)"
+    - name: Print hist
+      run: 
+        echo "${{ steps.hist.outputs.hist}}"
     - name: Rasa Data Validation
       run: |
         cd Rasa_Bot
