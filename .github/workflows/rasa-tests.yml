@@ -39,6 +39,7 @@ jobs:
         config_dict = yaml.load(f)
         hist = max([a['policies'][i]['max_history'] for i in range(len(a['policies'])) if not a['policies'][i]['name'] == 'RulePolicy'])
         f.close()
+        exit()
         rasa data validate --max-history hist
   training-testing:
     name: Train and Test model
