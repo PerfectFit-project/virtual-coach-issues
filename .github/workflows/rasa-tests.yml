@@ -30,18 +30,16 @@ jobs:
         pip install -r Rasa_Bot/requirements-dev.txt
     # The number for max-history needs to be adapted based on config.yml
     - name: Get max history from config
-      run: |
-        import yaml
-        from yaml.loader import SafeLoader
-        f = open("Rasa_Bot/config.yml")
-        a = yaml.load(f, Loader=SafeLoader)
-        hist = max([a['policies'][i]['max_history'] for i in range(len(a['policies'])) if not a['policies'][i]['name'] == 'RulePolicy'])
-      shell: python
+      id: hist
+      run:
+        echo "::set-output name=hist::$(python rasa_get_max_history.py)"
     - name: Rasa Data Validation
       run: |
         cd Rasa_Bot
         rasa telemetry disable
-        rasa data validate --max-history hist
+        rasa data validate --max-history $HIST
+      env:
+        HIST: ${{ steps.hist.outputs.hist }}
   training-testing:
     name: Train and Test model
     runs-on: ubuntu-latest
