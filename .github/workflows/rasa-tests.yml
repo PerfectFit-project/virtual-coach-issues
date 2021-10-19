@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - main
+      - rasa_env
   pull_request:
       types: [opened, synchronize, reopened]
 
@@ -32,7 +33,12 @@ jobs:
       run: | 
         cd Rasa_Bot
         rasa telemetry disable
-        rasa data validate --max-history 10
+        import yaml
+        f = open("config.yml")
+        config_dict = yaml.load(f)
+        hist = max([a['policies'][i]['max_history'] for i in range(len(a['policies'])) if not a['policies'][i]['name'] == 'RulePolicy'])
+        f.close()
+        rasa data validate --max-history hist
   training-testing:
     name: Train and Test model
     runs-on: ubuntu-latest
