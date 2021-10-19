@@ -32,7 +32,7 @@ jobs:
     - name: Get max history from config
       id: hist
       run:
-        echo "::set-output name=hist::$(python rasa_get_max_history.py)"
+        echo "::set-output name=hist::$(python ".github/workflows/rasa_get_max_history.py")"
     - name: Print hist
       run: 
         echo "${{ steps.hist.outputs.hist}}"
