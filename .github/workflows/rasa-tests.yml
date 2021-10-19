@@ -33,6 +33,7 @@ jobs:
       run: | 
         cd Rasa_Bot
         rasa telemetry disable
+        python
         import yaml
         f = open("config.yml")
         config_dict = yaml.load(f)
