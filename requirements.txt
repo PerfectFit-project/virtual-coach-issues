@@ -1,9 +1,0 @@
--r onboarding/requirements.txt
--r Rasa_Bot/requirements.txt
--r Rasa_Bot/actions/requirements-actions.txt
--r scheduler/requirements.txt
--r sensor_api/requirements.txt
-
-requests==2.25.1
-pandas_ods_reader==0.0.7
-git+https://github.com/PerfectFit-project/pa-algorithms
